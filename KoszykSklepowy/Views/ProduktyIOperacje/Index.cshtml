@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Labo7_vol2.Models.ProduktyIOperacje;
+
+@{ ViewBag.Title = "Produkty do wyboru"; }
+
+<p>
+    Liczba Produktów: @Model.SumarycznaLiczba() 
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Nazwa
+        </th>
+        <th>
+            Ilość
+        </th>
+    </tr>
+    @{ var i = 0;}
+        @foreach (var item in Model.Produkty)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Produkt.Nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ilosc)
+            </td>
+            <td>
+                @Html.ActionLink("View", "Details", new { id = i }) |
+                @Html.ActionLink("+ 1", "DodajProduktDoKoszyka", new { id = i }) |
+                @Html.ActionLink("- 1", "UsunProduktZKoszyka", new { id= i }) |
+                @Html.ActionLink("Delete", "Delete", new { id= i }) |
+            </td>         
+        </tr>
+        i++;
+    }
+</table>
+
+<p>
+    @Html.ActionLink("Powrót", "Index", "Produkty") |
+    @Html.ActionLink("Zatwierdź", "ZatwierdzenieZakupow", "ProduktyWKoszyku")
+</p>

@@ -1,0 +1,48 @@
+﻿@model Labo7_vol2.Models.Kategoria;
+
+@{ ViewData["Title"] = "Menu";
+   var upCat = ViewBag.UpperCategory as Kategoria; }
+
+<h2>Menu w/g kategorii</h2>
+<div>
+    <h4>Kategoria</h4>
+    <hr />
+    <div class="d-flex justify-content-start">
+        <dl class="dl-horizontal">
+            <dt> Powrót: </dt>
+            <dd>
+                @if (Model.NadKategoria != null)
+                {
+                    @Html.ActionLink(upCat.Nazwa, "Menu", new { id = upCat.Id })
+                }
+            </dd>
+            <dt> Tu jesteś: </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nazwa)
+            </dd>
+        </dl>
+    </div>
+    <hr />
+    <div class="d-flex justify-content-end">
+        <dl class="dl-horizontal">
+            <dt>  Podkategorie:  </dt>
+            @{ var nr = 1;}
+            @foreach (var item in ViewBag.SubCategories as List<Kategoria>)
+            {
+                <dt> @(nr++) </dt>
+                <dd> @Html.ActionLink(item.Nazwa, "Menu", new { id = item.Id })</dd>
+            }
+        </dl>
+    </div>
+    <div class="d-flex justify-content-end">
+        <dl class="dl-horizontal">
+            <dt>  Podkategorie Podkategorii:  </dt>
+            @{ var nr2 = 1;}
+            @foreach (var item in ViewBag.SubCategoriesPrzepisy as List<Przepis>)
+            {
+                <dt> @(nr2++) </dt>
+                <dd> @Html.ActionLink(item.Nazwa, "Menu", new { id = item.KategoriaId })</dd>
+            }
+        </dl>
+    </div>
+</div>
